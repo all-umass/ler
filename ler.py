@@ -1,4 +1,4 @@
-from numpy import median
+from numpy import exp, median
 from scipy.sparse.csgraph import laplacian
 from sklearn.manifold.locally_linear import (
     null_space, LocallyLinearEmbedding)
@@ -88,7 +88,7 @@ def ler(X, Y, n_components=2, affinity='nearest_neighbors',
             dists = pairwise_distances(X)
             gamma = 1.0 / median(dists)
         affinity = kneighbors_graph(X, n_neighbors, mode='distance', include_self=True)
-        affinity.data = np.exp(-gamma * affinity.data ** 2)
+        affinity.data = exp(-gamma * affinity.data ** 2)
 
     K = rbf_kernel(Y, gamma=y_gamma)
     lap = laplacian(affinity, normed=True)

@@ -12,7 +12,7 @@ def demo(k):
     le = SpectralEmbedding(n_components=2, n_neighbors=k)
     le_X = le.fit_transform(X)
 
-    ler = LER(n_components=2, n_neighbors=k)
+    ler = LER(n_components=2, n_neighbors=k, affinity='rbf')
     ler_X = ler.fit_transform(X, t)
 
     _, axes = plt.subplots(nrows=1, ncols=3, figsize=plt.figaspect(0.33))
