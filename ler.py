@@ -87,7 +87,8 @@ def ler(X, Y, n_components=2, affinity='nearest_neighbors',
         if gamma == None:
             dists = pairwise_distances(X)
             gamma = 1.0 / median(dists)
-        affinity = rbf_kernel(X, gamma=gamma)
+        affinity = kneighbors_graph(X, n_neighbors, mode='distance', include_self=True)
+        affinity.data = np.exp(-gamma * affinity.data ** 2)
 
     K = rbf_kernel(Y, gamma=y_gamma)
     lap = laplacian(affinity, normed=True)
